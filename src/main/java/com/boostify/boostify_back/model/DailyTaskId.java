@@ -14,10 +14,10 @@ import lombok.Setter;
 public class DailyTaskId implements Serializable {
     
     @EqualsAndHashCode.Include
-    private Long userId;
+    private Integer idUser;
 
     @EqualsAndHashCode.Include
-    private Long taskId;
+    private Integer idTask;
 
 
 }

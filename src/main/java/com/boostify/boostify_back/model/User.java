@@ -28,9 +28,9 @@ public class User {
     
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private Long id;
+    private Integer id;
     private String name;
-    private String emai;
+    private String email;
 
     @Column(name = "hashed_password")
     private String hashedPassword;

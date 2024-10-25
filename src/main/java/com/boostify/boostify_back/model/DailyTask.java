@@ -26,11 +26,11 @@ public class DailyTask {
     
     @Id 
     @Column(name = "id_user")
-    private Long idUser;
+    private Integer idUser;
 
     @Id 
     @Column(name = "id_tasks")
-    private Long idTask;
+    private Integer idTask;
 
     @ManyToOne
     @MapsId("idUser")

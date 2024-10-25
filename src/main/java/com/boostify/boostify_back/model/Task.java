@@ -30,7 +30,7 @@ public class Task {
     
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private Long id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "id_user")
@@ -40,7 +40,7 @@ public class Task {
     private String description;
 
     @Enumerated(EnumType.STRING)
-    private Status staus = Status.PENDING;
+    private Status status = Status.PENDING;
 
     private LocalDate creationDate;
 
