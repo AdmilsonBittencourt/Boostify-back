@@ -38,4 +38,10 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Task> tasks = new ArrayList();
 
+    public User(String name, String email, String hashedPassword){
+        this.name = name;
+        this.email = email;
+        this.hashedPassword = hashedPassword;
+    }
+
 }
