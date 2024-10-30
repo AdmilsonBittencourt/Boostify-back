@@ -1,6 +1,5 @@
 package com.boostify.boostify_back.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;

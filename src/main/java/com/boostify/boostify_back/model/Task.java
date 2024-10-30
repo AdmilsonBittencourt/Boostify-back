@@ -7,7 +7,6 @@ import com.boostify.boostify_back.enums.Status;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -45,4 +44,12 @@ public class Task {
     @Column(nullable = false)
     private Priority priority;
 
+    public Task(User user, String title, String description, Status status, LocalDate creationDate, Priority priority) {
+        this.user = user;
+        this.title = title;
+        this.description = description;
+        this.status = status;
+        this.creationDate = creationDate;
+        this.priority = priority;
+    }
 }
