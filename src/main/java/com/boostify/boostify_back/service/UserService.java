@@ -36,14 +36,14 @@ public class UserService {
         return new UserDTO(save.getId(), save.getName(), save.getEmail(), save.getHashedPassword());
     }
 
-    public UserDTO getUserById(int id) {
+    public UserDTO getUserById(Long id) {
 
         User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("user not found"));
 
         return new UserDTO(user.getId(), user.getName(), user.getEmail(), user.getHashedPassword());
     }
 
-    public UserDTO updateUser(int id, UserDTO userDTO) {
+    public UserDTO updateUser(Long id, UserDTO userDTO) {
 
         User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("user not found"));
 
@@ -57,7 +57,7 @@ public class UserService {
         return new UserDTO(save.getId(), save.getName(), save.getEmail(), save.getHashedPassword());
     }
 
-    public void deleteUser(int id) {
+    public void deleteUser(Long id) {
 
         userRepository.findById(id).orElseThrow(() -> new RuntimeException("user not found"));
         userRepository.deleteById(id);

@@ -11,13 +11,13 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor
-public class DailyTaskId implements Serializable {
+public class UserDailyTaskId implements Serializable {
     
     @EqualsAndHashCode.Include
-    private Integer idUser;
+    private Long user;
 
     @EqualsAndHashCode.Include
-    private Integer idTask;
+    private Long task;
 
 
 }
