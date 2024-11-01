@@ -1,4 +1,4 @@
-package com.boostify.boostify_back.service;
+package com.boostify.boostify_back.service.user;
 
 import com.boostify.boostify_back.model.User;
 import com.boostify.boostify_back.model.dto.UserDTO;
@@ -10,18 +10,19 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
-    public UserDTO createUser(UserDTO userDTO) {
+    @Override
+    public UserDTO create(UserDTO userDTO) {
 
         Optional<User> byEmail = userRepository.findByEmail(userDTO.getEmail());
 
@@ -36,16 +37,18 @@ public class UserService {
         return new UserDTO(save.getId(), save.getName(), save.getEmail(), save.getHashedPassword());
     }
 
-    public UserDTO getUserById(int id) {
+    @Override
+    public UserDTO findById(Long id) {
 
-        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("user not found"));
+        User user = checkUserExists(id);
 
         return new UserDTO(user.getId(), user.getName(), user.getEmail(), user.getHashedPassword());
     }
 
-    public UserDTO updateUser(int id, UserDTO userDTO) {
+    @Override
+    public UserDTO update(Long id, UserDTO userDTO) {
 
-        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("user not found"));
+        User user = checkUserExists(id);
 
         Optional<User> byEmail = userRepository.findByEmail(userDTO.getEmail());
         if(byEmail.isPresent() && !byEmail.get().getEmail().equals(user.getEmail())) throw new RuntimeException("email já cadastrado");
@@ -57,9 +60,15 @@ public class UserService {
         return new UserDTO(save.getId(), save.getName(), save.getEmail(), save.getHashedPassword());
     }
 
-    public void deleteUser(int id) {
+    @Override
+    public void delete(Long id) {
 
-        userRepository.findById(id).orElseThrow(() -> new RuntimeException("user not found"));
+        checkUserExists(id);
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public User checkUserExists(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("user not found"));
     }
 }

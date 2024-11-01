@@ -15,33 +15,22 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "daily_tasks")
-@IdClass(DailyTaskId.class)
+@Table(name = "user_daily_tasks")
+@IdClass(UserDailyTaskId.class)
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class DailyTask {
-    
-    @Id 
-    @Column(name = "id_user")
-    private Integer idUser;
+@AllArgsConstructor
+public class UserDailyTask {
 
-    @Id 
-    @Column(name = "id_tasks")
-    private Integer idTask;
-
+    @Id
     @ManyToOne
-    @MapsId("idUser")
-    @JoinColumn(name = "id_user", referencedColumnName = "id")
+    @JoinColumn(name = "id_user", nullable = false)
     private User user;
 
+    @Id
     @ManyToOne
-    @MapsId("idTask")
-    @JoinColumn(name = "id_tasks", referencedColumnName = "id")
+    @JoinColumn(name = "id_tasks", nullable = false)
     private Task task;
-
-
 
 }

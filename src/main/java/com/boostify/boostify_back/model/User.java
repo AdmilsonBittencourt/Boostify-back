@@ -1,6 +1,5 @@
 package com.boostify.boostify_back.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -25,18 +24,24 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class User {
-    
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private Integer id;
+    private Long id;
+
+    @Column(nullable = false, length = 255)
     private String name;
+
+    @Column(nullable = false, unique = true, length = 255)
     private String email;
 
-    @Column(name = "hashed_password")
+    @Column(name = "hashed_password", nullable = false, length = 255)
     private String hashedPassword;
 
+    // Relacionamento com tasks (um usuário pode ter várias tarefas)
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Task> tasks = new ArrayList();
+    private List<Task> tasks;
 
     public User(String name, String email, String hashedPassword){
         this.name = name;
