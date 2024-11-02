@@ -2,7 +2,7 @@ package com.boostify.boostify_back.service.task;
 
 import com.boostify.boostify_back.model.Task;
 import com.boostify.boostify_back.model.User;
-import com.boostify.boostify_back.model.dto.TaskDTO;
+import com.boostify.boostify_back.controller.dto.TaskDTO;
 import com.boostify.boostify_back.repository.TaskRepository;
 import com.boostify.boostify_back.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

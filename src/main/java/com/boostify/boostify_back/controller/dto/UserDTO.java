@@ -1,4 +1,4 @@
-package com.boostify.boostify_back.model.dto;
+package com.boostify.boostify_back.controller.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
