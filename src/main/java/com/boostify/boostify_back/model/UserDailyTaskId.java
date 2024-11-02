@@ -2,15 +2,13 @@ package com.boostify.boostify_back.model;
 
 import java.io.Serializable;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor
+@NoArgsConstructor
 public class UserDailyTaskId implements Serializable {
     
     @EqualsAndHashCode.Include
