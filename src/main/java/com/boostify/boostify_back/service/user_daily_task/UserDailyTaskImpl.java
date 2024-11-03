@@ -3,7 +3,7 @@ package com.boostify.boostify_back.service.user_daily_task;
 import com.boostify.boostify_back.model.Task;
 import com.boostify.boostify_back.model.User;
 import com.boostify.boostify_back.model.UserDailyTask;
-import com.boostify.boostify_back.model.dto.UserDailyTaskDTO;
+import com.boostify.boostify_back.controller.dto.UserDailyTaskDTO;
 import com.boostify.boostify_back.repository.UserDailyTaskRepository;
 import com.boostify.boostify_back.service.task.TaskService;
 import com.boostify.boostify_back.service.user.UserService;

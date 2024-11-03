@@ -1,4 +1,4 @@
-package com.boostify.boostify_back.model.dto;
+package com.boostify.boostify_back.controller.dto;
 
 import com.boostify.boostify_back.enums.Priority;
 import com.boostify.boostify_back.enums.Status;

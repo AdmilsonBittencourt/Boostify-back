@@ -1,7 +1,7 @@
 package com.boostify.boostify_back.service.user;
 
 import com.boostify.boostify_back.model.User;
-import com.boostify.boostify_back.model.dto.UserDTO;
+import com.boostify.boostify_back.controller.dto.UserDTO;
 import com.boostify.boostify_back.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -70,5 +70,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User checkUserExists(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new RuntimeException("user not found"));
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("user not found"));
     }
 }

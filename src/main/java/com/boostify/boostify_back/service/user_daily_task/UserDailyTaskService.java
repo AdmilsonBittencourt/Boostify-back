@@ -1,6 +1,6 @@
 package com.boostify.boostify_back.service.user_daily_task;
 
-import com.boostify.boostify_back.model.dto.UserDailyTaskDTO;
+import com.boostify.boostify_back.controller.dto.UserDailyTaskDTO;
 
 import java.util.List;
 
