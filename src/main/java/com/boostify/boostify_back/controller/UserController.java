@@ -23,4 +23,11 @@ public class UserController {
 
         return ResponseEntity.status(HttpStatus.OK).body(userService.findById(id));
     }
+
+    @PostMapping()
+    public ResponseEntity<UserDTO> register(@RequestBody UserDTO userDTO) {
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.create(userDTO));
+
+    }
 }

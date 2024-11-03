@@ -20,9 +20,9 @@ import java.util.Collections;
 public class SecurityFilter extends OncePerRequestFilter {
 
 
-    private TokenService tokenService;
+    private final TokenService tokenService;
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public SecurityFilter(TokenService tokenService, UserRepository userRepository) {

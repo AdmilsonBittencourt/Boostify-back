@@ -7,5 +7,7 @@ import com.boostify.boostify_back.service.BaseService;
 public interface UserService extends BaseService<UserDTO, Long> {
 
     User checkUserExists(Long id);
+
+    User findByEmail(String email);
 }
 
