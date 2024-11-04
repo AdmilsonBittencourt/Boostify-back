@@ -25,9 +25,23 @@ public class UserController {
     }
 
     @PostMapping()
-    public ResponseEntity<UserDTO> register(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> postUser(@RequestBody UserDTO userDTO) {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.create(userDTO));
 
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDTO> putUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
+
+        return ResponseEntity.status(HttpStatus.OK).body(userService.update(id, userDTO));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<UserDTO> deleteUser(@PathVariable Long id) {
+
+        userService.delete(id);
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
