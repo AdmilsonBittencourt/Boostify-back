@@ -2,6 +2,7 @@ package com.boostify.boostify_back.service;
 
 import com.boostify.boostify_back.controller.dto.LoginRequestDTO;
 import com.boostify.boostify_back.controller.dto.LoginResponseDTO;
+import com.boostify.boostify_back.exceptions.InvalidCredentialsException;
 import com.boostify.boostify_back.infra.security.TokenService;
 import com.boostify.boostify_back.model.User;
 import com.boostify.boostify_back.service.user.UserService;
@@ -28,7 +29,7 @@ public class AuthService {
         User user = userService.findByEmail(loginRequestDTO.email());
 
         if(!passwordEncoder.matches(loginRequestDTO.password(), user.getHashedPassword()))
-            throw new RuntimeException("Bad request");
+            throw new InvalidCredentialsException("Invalid email or password");
 
         String token = tokenService.generateToken(user);
         return new LoginResponseDTO(token, user.getId());

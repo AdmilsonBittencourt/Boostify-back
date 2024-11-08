@@ -1,5 +1,7 @@
 package com.boostify.boostify_back.service.task;
 
+import com.boostify.boostify_back.exceptions.BadRequestException;
+import com.boostify.boostify_back.exceptions.NotFoundException;
 import com.boostify.boostify_back.model.Task;
 import com.boostify.boostify_back.model.User;
 import com.boostify.boostify_back.controller.dto.TaskDTO;
@@ -99,7 +101,7 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public Task checkTaskExists(Long id) {
-        return taskRepository.findById(id).orElseThrow(() -> new RuntimeException("task not found"));
+        return taskRepository.findById(id).orElseThrow(() -> new NotFoundException("task not found"));
     }
 
     @Override
@@ -107,7 +109,7 @@ public class TaskServiceImpl implements TaskService{
         Optional<Task> taskByTitleAndUser = taskRepository.findByTitleAndUser(title, user);
 
         if(taskByTitleAndUser.isPresent()) {
-            throw new RuntimeException("title already exists");
+            throw new BadRequestException("title already exists");
         }
     }
 }

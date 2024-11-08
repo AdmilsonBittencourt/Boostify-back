@@ -1,5 +1,6 @@
 package com.boostify.boostify_back.service.user_daily_task;
 
+import com.boostify.boostify_back.exceptions.NotFoundException;
 import com.boostify.boostify_back.model.Task;
 import com.boostify.boostify_back.model.User;
 import com.boostify.boostify_back.model.UserDailyTask;
@@ -42,7 +43,7 @@ public class UserDailyTaskImpl implements UserDailyTaskService{
 
         return repository.findByUserIdAndTaskId(userId, taskId)
                 .map(x -> new UserDailyTaskDTO(x.getUser().getId(), x.getTask().getId()))
-                .orElseThrow(() -> new RuntimeException("user_daily_task not found"));
+                .orElseThrow(() -> new NotFoundException("user_daily_task not found"));
     }
 
     @Override
@@ -62,7 +63,7 @@ public class UserDailyTaskImpl implements UserDailyTaskService{
     public void delete(Long userId, Long taskId) {
 
         UserDailyTask userDailyTaskNotFound = repository.findByUserIdAndTaskId(userId, taskId)
-                .orElseThrow(() -> new RuntimeException("user_daily_task not found"));
+                .orElseThrow(() -> new NotFoundException("user_daily_task not found"));
 
         repository.delete(userDailyTaskNotFound);
     }

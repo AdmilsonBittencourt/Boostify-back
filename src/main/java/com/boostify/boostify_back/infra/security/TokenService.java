@@ -4,8 +4,8 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.boostify.boostify_back.exceptions.BadRequestException;
 import com.boostify.boostify_back.model.User;
-import com.boostify.boostify_back.service.user.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +32,7 @@ public class TokenService {
 
             return token;
         }catch(JWTCreationException exception) {
-            throw new RuntimeException("Error while authenticating");
+            throw new BadRequestException("Error while authenticating");
         }
     }
 
