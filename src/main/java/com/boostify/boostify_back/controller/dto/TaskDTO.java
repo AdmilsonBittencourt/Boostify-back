@@ -32,4 +32,15 @@ public class TaskDTO {
         this.creationDate = creationDate;
         this.priority = priority;
     }
+
+    public TaskDTO(Long idUser, String title, String description, Priority priority) {
+        this.idUser = idUser;
+        this.title = title;
+        this.description = description;
+        this.priority = priority;
+    }
+
+    public TaskDTO(String status) {
+        this.status = Status.valueOf(status);
+    }
 }
