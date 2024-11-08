@@ -1,5 +1,7 @@
 package com.boostify.boostify_back.service.user;
 
+import com.boostify.boostify_back.exceptions.BadRequestException;
+import com.boostify.boostify_back.exceptions.NotFoundException;
 import com.boostify.boostify_back.model.User;
 import com.boostify.boostify_back.controller.dto.UserDTO;
 import com.boostify.boostify_back.repository.UserRepository;
@@ -27,7 +29,7 @@ public class UserServiceImpl implements UserService {
         Optional<User> byEmail = userRepository.findByEmail(userDTO.getEmail());
 
         if(byEmail.isPresent()) {
-            throw new RuntimeException("Email já cadastrado");
+            throw new BadRequestException("email already exists");
         }
 
         String HashedPassword = passwordEncoder.encode(userDTO.getHashedPassword());
@@ -51,7 +53,7 @@ public class UserServiceImpl implements UserService {
         User user = checkUserExists(id);
 
         Optional<User> byEmail = userRepository.findByEmail(userDTO.getEmail());
-        if(byEmail.isPresent() && !byEmail.get().getEmail().equals(user.getEmail())) throw new RuntimeException("email já cadastrado");
+        if(byEmail.isPresent() && !byEmail.get().getEmail().equals(user.getEmail())) throw new BadRequestException("email already exists");
 
         user.setName(userDTO.getName());
         user.setEmail(userDTO.getEmail());
@@ -69,11 +71,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User checkUserExists(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("user not found"));
+        return userRepository.findById(id).orElseThrow(() -> new NotFoundException("user not found"));
     }
 
     @Override
     public User findByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("user not found"));
+        return userRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("user not found"));
     }
 }
