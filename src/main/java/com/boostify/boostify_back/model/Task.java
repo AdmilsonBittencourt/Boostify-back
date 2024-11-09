@@ -1,6 +1,8 @@
 package com.boostify.boostify_back.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.boostify.boostify_back.enums.Priority;
 import com.boostify.boostify_back.enums.Status;
@@ -43,6 +45,9 @@ public class Task {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Priority priority;
+
+    @OneToMany(mappedBy = "task", orphanRemoval = true)
+    private List<UserDailyTask> dailyTasks = new ArrayList<>();
 
     public Task(User user, String title, String description, Status status, LocalDate creationDate, Priority priority) {
         this.user = user;

@@ -32,7 +32,11 @@ public class TaskServiceImpl implements TaskService{
 
         User user = userService.checkUserExists(taskDTO.getIdUser());
 
-        taskExistsForUserWithTitle(taskDTO.getTitle(), user);
+        Task titleExists = taskExistsForUserWithTitle(taskDTO.getTitle(), user);
+
+        if(titleExists != null) {
+            throw new BadRequestException("title already exists");
+        }
 
         Task save = taskRepository.save(
                 new Task(

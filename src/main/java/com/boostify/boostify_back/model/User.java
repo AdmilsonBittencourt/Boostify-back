@@ -1,5 +1,6 @@
 package com.boostify.boostify_back.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -40,8 +41,11 @@ public class User {
     private String hashedPassword;
 
     // Relacionamento com tasks (um usuário pode ter várias tarefas)
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Task> tasks;
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    private List<UserDailyTask> dailyTasks = new ArrayList<>();
 
     public User(String name, String email, String hashedPassword){
         this.name = name;
