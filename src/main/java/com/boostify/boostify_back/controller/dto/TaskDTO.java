@@ -2,7 +2,6 @@ package com.boostify.boostify_back.controller.dto;
 
 import com.boostify.boostify_back.enums.Priority;
 import com.boostify.boostify_back.enums.Status;
-import com.boostify.boostify_back.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
