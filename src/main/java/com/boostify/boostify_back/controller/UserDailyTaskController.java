@@ -2,6 +2,7 @@ package com.boostify.boostify_back.controller;
 
 import com.boostify.boostify_back.controller.dto.UserDailyTaskDTO;
 import com.boostify.boostify_back.service.user_daily_task.UserDailyTaskService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class UserDailyTaskController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDailyTaskDTO> postUserDailyTask(@RequestBody  UserDailyTaskDTO userDailyTaskDTO) {
+    public ResponseEntity<UserDailyTaskDTO> postUserDailyTask(@RequestBody @Valid UserDailyTaskDTO userDailyTaskDTO) {
 
         return ResponseEntity.status(HttpStatus.OK).body(userDailyTaskService.create(userDailyTaskDTO));
     }

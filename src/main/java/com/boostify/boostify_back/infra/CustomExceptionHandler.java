@@ -5,6 +5,8 @@ import com.boostify.boostify_back.exceptions.InvalidCredentialsException;
 import com.boostify.boostify_back.exceptions.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -29,5 +31,16 @@ public class CustomExceptionHandler {
                 .body(new RestErrorMessage(HttpStatus.UNAUTHORIZED.value(), ex.getMessage()));
     }
 
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<RestErrorMessage> methodArgumentNotValid(MethodArgumentNotValidException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new RestErrorMessage(HttpStatus.BAD_REQUEST.value(), "Method Argument Not Valid"));
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<RestErrorMessage> JSONParseError(HttpMessageNotReadableException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new RestErrorMessage(HttpStatus.BAD_REQUEST.value(), "JSON parse error"));
+    }
 
 }
