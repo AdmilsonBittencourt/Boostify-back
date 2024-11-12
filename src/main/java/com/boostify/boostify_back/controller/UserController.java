@@ -2,6 +2,7 @@ package com.boostify.boostify_back.controller;
 
 import com.boostify.boostify_back.controller.dto.UserDTO;
 import com.boostify.boostify_back.service.user.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class UserController {
     }
 
     @PostMapping()
-    public ResponseEntity<UserDTO> postUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> postUser(@RequestBody @Valid UserDTO userDTO) {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.create(userDTO));
 
