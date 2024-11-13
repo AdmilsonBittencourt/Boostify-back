@@ -1,5 +1,6 @@
 package com.boostify.boostify_back.service.task;
 
+import com.boostify.boostify_back.controller.dto.TaskStatusDTO;
 import com.boostify.boostify_back.model.Task;
 import com.boostify.boostify_back.model.User;
 import com.boostify.boostify_back.controller.dto.TaskDTO;
@@ -15,5 +16,5 @@ public interface TaskService extends BaseService<TaskDTO, Long> {
 
     List<TaskDTO> findAllByUserId(Long id);
 
-    TaskDTO updateStatus(Long id, TaskDTO taskDTO);
+    TaskDTO updateStatus(Long id, TaskStatusDTO taskDTO);
 }

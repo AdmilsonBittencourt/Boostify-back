@@ -1,5 +1,6 @@
 package com.boostify.boostify_back.service.task;
 
+import com.boostify.boostify_back.controller.dto.TaskStatusDTO;
 import com.boostify.boostify_back.enums.Status;
 import com.boostify.boostify_back.exceptions.BadRequestException;
 import com.boostify.boostify_back.exceptions.NotFoundException;
@@ -129,10 +130,10 @@ public class TaskServiceImpl implements TaskService{
     }
 
     @Override
-    public TaskDTO updateStatus(Long id, TaskDTO taskDTO) {
+    public TaskDTO updateStatus(Long id, TaskStatusDTO taskDTO) {
 
         Task task = checkTaskExists(id);
-        task.setStatus(taskDTO.getStatus());
+        task.setStatus(taskDTO.status());
 
         Task save = taskRepository.save(task);
 
