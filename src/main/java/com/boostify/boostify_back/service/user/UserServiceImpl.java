@@ -42,9 +42,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO findById(Long id) {
 
-        User user = checkUserExists(id);
-
-        return new UserDTO(user.getId(), user.getName(), user.getEmail(), user.getHashedPassword());
+        return userRepository.findById(id)
+                .map(user -> new UserDTO(user.getId(), user.getName(), user.getEmail(), user.getHashedPassword())) // Exemplo de mapeamento
+                .orElseThrow(() -> new NotFoundException("User not found with ID: " + id));
     }
 
     @Override
