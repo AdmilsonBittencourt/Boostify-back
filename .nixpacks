@@ -7,4 +7,4 @@ build:
     - "./mvnw clean install -DskipTests" # Comando de build do Maven (sem rodar os testes)
 start:
   # Comando que o Railway irá rodar para iniciar sua aplicação
-  command: "java -Dserver.port=$PORT -jar target/*.jar" # Comando para rodar o JAR do Spring Boot
+  command: "java -Dserver.port=$PORT -jar target/boostify-back-0.0.1-SNAPSHOT.jar" # Comando para rodar o JAR do Spring Boot
