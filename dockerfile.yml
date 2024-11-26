@@ -1,0 +1,30 @@
+# Etapa 1: Construção da imagem para o build do Spring Boot
+FROM maven:3.8.4-openjdk-17-slim AS build
+
+# Diretório de trabalho dentro do container
+WORKDIR /app
+
+# Copiar o arquivo pom.xml e baixar as dependências
+COPY pom.xml .
+RUN mvn dependency:go-offline
+
+# Copiar o código fonte do projeto
+COPY src ./src
+
+# Executar o comando Maven para construir o projeto (empacotar o jar)
+RUN mvn clean package -DskipTests
+
+# Etapa 2: Configuração para rodar a aplicação
+FROM openjdk:17-jdk-slim
+
+# Diretório de trabalho dentro do container
+WORKDIR /app
+
+# Copiar o arquivo .jar da etapa de build para o container
+COPY --from=build /app/target/boostify-back-0.0.1-SNAPSHOT.jar /app/boostify-back.jar
+
+# Expor a porta em que a aplicação vai rodar
+EXPOSE 8080
+
+# Comando para rodar a aplicação
+ENTRYPOINT ["java", "-jar", "boostify-back.jar"]
