@@ -1,20 +1,20 @@
 package com.boostify.boostify_back.service.task;
 
+import java.time.LocalDate;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.boostify.boostify_back.controller.dto.TaskDTO;
 import com.boostify.boostify_back.controller.dto.TaskStatusDTO;
 import com.boostify.boostify_back.enums.Status;
 import com.boostify.boostify_back.exceptions.BadRequestException;
 import com.boostify.boostify_back.exceptions.NotFoundException;
 import com.boostify.boostify_back.model.Task;
 import com.boostify.boostify_back.model.User;
-import com.boostify.boostify_back.controller.dto.TaskDTO;
 import com.boostify.boostify_back.repository.TaskRepository;
 import com.boostify.boostify_back.service.user.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TaskServiceImpl implements TaskService{
@@ -102,7 +102,7 @@ public class TaskServiceImpl implements TaskService{
 
         var titleExists = taskExistsForUserWithTitle(taskDTO.getTitle(), task.getUser());
 
-        if(!titleExists.getId().equals(id)) {
+        if(titleExists != null && !titleExists.getId().equals(id)) {
             throw new BadRequestException("title already exists");
         }
 
