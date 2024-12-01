@@ -1,5 +1,24 @@
 package com.boostify.boostify_back.service;
 
+import java.time.LocalDate;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import static org.mockito.ArgumentMatchers.any;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import org.mockito.junit.jupiter.MockitoExtension;
+
 import com.boostify.boostify_back.controller.dto.TaskDTO;
 import com.boostify.boostify_back.enums.Priority;
 import com.boostify.boostify_back.enums.Status;
@@ -10,19 +29,6 @@ import com.boostify.boostify_back.model.User;
 import com.boostify.boostify_back.repository.TaskRepository;
 import com.boostify.boostify_back.service.task.TaskServiceImpl;
 import com.boostify.boostify_back.service.user.UserService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.time.LocalDate;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class TaskServiceImplTest {
@@ -50,12 +56,12 @@ public class TaskServiceImplTest {
         User user = new User();
         user.setId(userId);
 
-        TaskDTO taskDTO = new TaskDTO(null, userId, "Task Title", "Description", null, null, Priority.LOW);
+        TaskDTO taskDTO = new TaskDTO(null, userId, "Task Title", "Description", null, null, Priority.LOW, false);
 
         when(userService.checkUserExists(userId)).thenReturn(user);
         when(taskRepository.findByTitleAndUser("Task Title", user)).thenReturn(Optional.empty());
 
-        Task savedTask = new Task(user, "Task Title", "Description", Status.PENDING, LocalDate.now(), Priority.LOW);
+        Task savedTask = new Task(user, "Task Title", "Description", Status.PENDING, LocalDate.now(), Priority.LOW, false);
         savedTask.setId(1L);
 
         when(taskRepository.save(Mockito.any(Task.class))).thenReturn(savedTask);
@@ -77,7 +83,7 @@ public class TaskServiceImplTest {
         User user = new User();
         user.setId(userId);
 
-        TaskDTO taskDTO = new TaskDTO(null, userId, "Existing Title", "Description", null, null, Priority.AVERAGE);
+        TaskDTO taskDTO = new TaskDTO(null, userId, "Existing Title", "Description", null, null, Priority.AVERAGE, true);
 
         when(userService.checkUserExists(userId)).thenReturn(user);
         when(taskRepository.findByTitleAndUser("Existing Title", user)).thenReturn(Optional.of(new Task()));
@@ -91,7 +97,7 @@ public class TaskServiceImplTest {
     void findById_shouldReturnTaskDTO() {
         // Given
         Long taskId = 1L;
-        Task task = new Task(new User(), "Task Title", "Description", Status.PENDING, LocalDate.now(), Priority.HIGH);
+        Task task = new Task(new User(), "Task Title", "Description", Status.PENDING, LocalDate.now(), Priority.HIGH, true);
         task.setId(taskId);
 
         when(taskRepository.findById(taskId)).thenReturn(Optional.of(task));
@@ -120,15 +126,15 @@ public class TaskServiceImplTest {
     void update_shouldUpdateTask() {
         // Given
         Long taskId = 1L;
-        Task existingTask = new Task(new User(), "Old Title", "Old Description", Status.PENDING, LocalDate.now(), Priority.LOW);
+        Task existingTask = new Task(new User(), "Old Title", "Old Description", Status.PENDING, LocalDate.now(), Priority.LOW, false);
         existingTask.setId(taskId);
 
-        TaskDTO taskDTO = new TaskDTO(null, null, "Updated Title", "Updated Description", null, null, Priority.AVERAGE);
+        TaskDTO taskDTO = new TaskDTO(null, null, "Updated Title", "Updated Description", null, null, Priority.AVERAGE, false);
 
         when(taskRepository.findById(taskId)).thenReturn(Optional.of(existingTask));
         when(taskRepository.findByTitleAndUser("Updated Title", existingTask.getUser())).thenReturn(Optional.of(existingTask));
 
-        Task updatedTask = new Task(existingTask.getUser(), "Updated Title", "Updated Description", Status.PENDING, LocalDate.now(), Priority.LOW);
+        Task updatedTask = new Task(existingTask.getUser(), "Updated Title", "Updated Description", Status.PENDING, LocalDate.now(), Priority.LOW, false);
         updatedTask.setId(taskId);
 
         when(taskRepository.save(existingTask)).thenReturn(updatedTask);
