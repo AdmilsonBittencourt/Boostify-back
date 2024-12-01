@@ -1,13 +1,20 @@
 package com.boostify.boostify_back.model;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.boostify.boostify_back.enums.Priority;
 import com.boostify.boostify_back.enums.Status;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -46,15 +53,16 @@ public class Task {
     @Column(nullable = false)
     private Priority priority;
 
-    @OneToMany(mappedBy = "task", orphanRemoval = true)
-    private List<UserDailyTask> dailyTasks = new ArrayList<>();
+    @Column(nullable = false)
+    private Boolean isDaily;
 
-    public Task(User user, String title, String description, Status status, LocalDate creationDate, Priority priority) {
+    public Task(User user, String title, String description, Status status, LocalDate creationDate, Priority priority, Boolean isDaily) {
         this.user = user;
         this.title = title;
         this.description = description;
         this.status = status;
         this.creationDate = creationDate;
         this.priority = priority;
+        this.isDaily = isDaily;
     }
 }

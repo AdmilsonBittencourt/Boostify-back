@@ -46,7 +46,8 @@ public class TaskServiceImpl implements TaskService{
                         taskDTO.getDescription(),
                         Status.PENDING,
                         LocalDate.now(),
-                        taskDTO.getPriority()
+                        taskDTO.getPriority(),
+                        taskDTO.getIsDaily()
                 )
         );
 
@@ -57,7 +58,8 @@ public class TaskServiceImpl implements TaskService{
                 save.getDescription(),
                 save.getStatus(),
                 save.getCreationDate(),
-                save.getPriority()
+                save.getPriority(),
+                save.getIsDaily()
         );
     }
 
@@ -73,7 +75,8 @@ public class TaskServiceImpl implements TaskService{
                 task.getDescription(),
                 task.getStatus(),
                 task.getCreationDate(),
-                task.getPriority()
+                task.getPriority(),
+                task.getIsDaily()
         );
     }
 
@@ -91,7 +94,8 @@ public class TaskServiceImpl implements TaskService{
                         task.getDescription(),
                         task.getStatus(),
                         task.getCreationDate(),
-                        task.getPriority()
+                        task.getPriority(),
+                        task.getIsDaily()
                 )).toList();
     }
 
@@ -109,6 +113,7 @@ public class TaskServiceImpl implements TaskService{
         task.setTitle(taskDTO.getTitle());
         task.setDescription(taskDTO.getDescription());
         task.setPriority(taskDTO.getPriority());
+        task.setIsDaily(taskDTO.getIsDaily());
 
         Task save = taskRepository.save(task);
 
@@ -119,7 +124,8 @@ public class TaskServiceImpl implements TaskService{
                 save.getDescription(),
                 save.getStatus(),
                 save.getCreationDate(),
-                save.getPriority()
+                save.getPriority(),
+                save.getIsDaily()
         );
     }
 
@@ -144,7 +150,8 @@ public class TaskServiceImpl implements TaskService{
                 save.getDescription(),
                 save.getStatus(),
                 save.getCreationDate(),
-                save.getPriority()
+                save.getPriority(),
+                save.getIsDaily()
         );
     }
 

@@ -1,15 +1,16 @@
 package com.boostify.boostify_back.controller.dto;
 
+import java.time.LocalDate;
+
 import com.boostify.boostify_back.enums.Priority;
 import com.boostify.boostify_back.enums.Status;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -34,10 +35,14 @@ public class TaskDTO {
     @NotNull
     private Priority priority;
 
-    public TaskDTO(Long idUser, String title, String description, Priority priority) {
+    @NotNull
+    private Boolean isDaily;
+
+    public TaskDTO(Long idUser, String title, String description, Priority priority, Boolean isDaily) {
         this.idUser = idUser;
         this.title = title;
         this.description = description;
         this.priority = priority;
+        this.isDaily = isDaily;
     }
 }
